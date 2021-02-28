@@ -1,4 +1,3 @@
-console.log("insane?");
 new Vue({
     el: "#main",
     data: {
@@ -26,6 +25,7 @@ new Vue({
     },
     methods: {
         handleClick: function (e) {
+            console.log(e);
             e.preventDefault();
             var formData = new FormData();
             formData.append("title", this.title);
@@ -35,11 +35,19 @@ new Vue({
             console.log("title: ", this.title);
             console.log("description: ", this.description);
             console.log("handleClick running");
+            axios
+                .post("/upload", formData)
+                .then(function (response) {
+                    console.log("response from POST request: ", response);
+                })
+                .catch(function (error) {
+                    console.log("Post request error: ", error);
+                });
         },
         handleChange: function (e) {
-            console.log("e.target.files : ", e.taret.file[0]);
+            console.log("e.target.files : ", e.target.files[0]);
             console.log("handleChange is running");
-            this.file = e.target.file[0];
+            this.file = e.target.files[0];
         },
     },
 });

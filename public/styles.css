@@ -1,3 +1,25 @@
 body {
-    background-color: burlywood;
+    background-color: grey;
+}
+img {
+    width: 200px;
+    height: 200px;
+}
+#upload {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}
+#cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}
+#img-card {
+    border: 2px solid black;
+    width: 320px;
 }
