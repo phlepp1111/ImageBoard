@@ -28,6 +28,7 @@ app.use(express.static("public"));
 app.get("/imageboard", (req, res) => {
     db.getAllImages()
         .then(({ rows }) => {
+            console.log("Rows: ", rows);
             res.json(rows);
             console.log("hit the get route!");
         })

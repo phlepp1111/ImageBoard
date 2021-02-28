@@ -7,13 +7,14 @@
 <body> 
     
     <div id="main">
+        <h1>Imageboard</h1>
         <div id="upload">
             <form>
                 <input v-model="title" type="text" name="title" placeholder="title">
                 <input v-model="description" type="text" name="description" placeholder="description">
                 <input v-model="username" type="text" name="username" placeholder="username">
                 <input @change="handleChange" type="file" name="file" accept="image/*">
-                <button @click.prevent="handleClick">Submit</button>
+                <button @click="handleClick">Submit</button>
             </form>
         </div>
         <br>
@@ -22,7 +23,6 @@
             <div id="img-card"
                             v-for="img in images"
                             :key="img.id"
-                            @click="handleClick(img.name)"
                         >
                         <h3>{{img.title}}</h3> 
                         <img :src="img.url" alt="image"/>

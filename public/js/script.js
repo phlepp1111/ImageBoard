@@ -17,7 +17,11 @@ new Vue({
             .get("/imageboard")
             .then(function (response) {
                 console.log("response:", response);
-                self.images = response.data;
+                var imgArray = response.data;
+                imgArray.sort(function (a, b) {
+                    return new Date(b.created_at) - new Date(a.created_at);
+                });
+                self.images = imgArray;
             })
             .catch(function (error) {
                 console.log("axiosError: ", error);
