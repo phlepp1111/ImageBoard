@@ -17,6 +17,16 @@
 //         },
 //     },
 // });
+Vue.component("comment-section", {
+    template: "#comment-template",
+    data: function () {
+        return {
+            comment: "",
+        };
+    },
+    props: "",
+    mounted: function () {},
+});
 Vue.component("image-popup", {
     template: "#popup-template",
     data: function () {
@@ -47,7 +57,6 @@ Vue.component("image-popup", {
     },
     methods: {
         closeElement: function () {
-            console.log("X got clicked");
             this.$emit("close");
         },
     },

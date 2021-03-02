@@ -37,6 +37,8 @@
                         <!-- <p id="timestamp">{{img.created_at}}</p> -->
             </div>
         </div>
+        <br>
+        <button>MORE</button>
     </div>
     <!-- <script id="my-component-template" type="text/x-template"> -->
         <!-- <div class="component">
@@ -47,13 +49,27 @@
      -->
     <script id="popup-template" type="text/x-template">
         <div class="card-popup">
-            <h2 id="closeX" @click="closeElement">x</h2>
-            <h3>{{title}}</h3> 
-            <img v-bind:src="url" alt="image" id="img-popup"/>
-            <p>{{description}}</p>
+            <img class="imgfull" v-bind:src="url" alt="image" id="img-popup" @click="closeElement"/>
+            <h2>{{title}}</h2> 
+            <h3>{{description}}</h3>
             <p>Posted by {{username}}</p>
             <p id="timestamp">{{created_at}}</p>
+            <comment-section></comment-section>
         </div>
+    </script>
+
+    <script id="comment-template" type="text/x-template">
+        <div class="comment-section">
+            <form action="POST">
+                <input type="text" placeholder="comment here">
+                <input type="text" placeholder="username">
+                <button>POST</button>
+                <br>
+                <div id="comments"></div>
+
+            </form>
+        </div>
+    
     </script>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
