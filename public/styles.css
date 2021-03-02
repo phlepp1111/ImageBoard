@@ -3,11 +3,15 @@ body {
     color: whitesmoke;
     background-color: black;
 }
-img {
+#imgpreview {
     width: 200px;
     height: 200px;
 }
 h1 {
+    text-align: center;
+    cursor: default;
+}
+input {
     text-align: center;
 }
 #upload {
@@ -22,7 +26,7 @@ h1 {
 #cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     text-align: center;
 }
@@ -30,14 +34,21 @@ h1 {
     object-fit: contain;
     border: 2px solid white;
     width: 300px;
-    height: 450px;
-    margin: 15px;
+    height: 350px;
+    margin: 5px;
+    align-items: center;
+    cursor: default;
 }
 #img-card:hover {
     color: tomato;
     border: 2px solid tomato;
+    cursor: default;
+    background-color: rgba(44, 44, 44, 0.384);
 }
 #timestamp {
     font-size: smaller;
     color: dimgrey;
+}
+#input {
+    padding: 15px;
 }

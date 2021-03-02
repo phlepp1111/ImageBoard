@@ -1,3 +1,57 @@
+// Vue.component("my-first-component", {
+//     template: "#my-component-template",
+//     data: function () {
+//         return {
+//             name: "Philipp",
+//             count: 1,
+//         };
+//     },
+//     props: ["moodId"],
+//     mounted: function () {
+//         console.log("this.moodId: ", this.moodId);
+//     },
+//     methods: {
+//         updateCount: function () {
+//             console.log("component button got clicked");
+//             this.count++;
+//         },
+//     },
+// });
+Vue.component("image-popup", {
+    template: "#popup-template",
+    data: function () {
+        return {
+            url: "",
+            title: "",
+            description: "",
+            username: "",
+            created_at: "",
+        };
+    },
+    props: ["imageId"],
+    mounted: function () {
+        var self = this;
+        axios
+            .get("/imageboard/" + this.imageId)
+            .then(function (response) {
+                console.log("response!!!!!", response.data.image);
+                self.title = response.data.image.title;
+                self.description = response.data.image.description;
+                self.username = response.data.image.username;
+                self.url = response.data.image.url;
+                self.created_at = response.data.image.created_at;
+            })
+            .catch(function (err) {
+                console.log("error in axios", err);
+            });
+    },
+    methods: {
+        updateCount: function () {
+            console.log("component button got clicked");
+            this.count++;
+        },
+    },
+});
 new Vue({
     el: "#main",
     data: {
@@ -8,6 +62,13 @@ new Vue({
         description: "",
         username: "",
         file: null,
+        // moods: [
+        //     { id: 1, title: ":(" },
+        //     { id: 2, title: ":)" },
+        //     { id: 3, title: ":/" },
+        // ],
+        // moodSelected: 1,
+        imageSelected: null,
     },
     mounted: function () {
         console.log("my main vue instance has mounted");
@@ -52,6 +113,15 @@ new Vue({
             console.log("e.target.files : ", e.target.files[0]);
             console.log("handleChange is running");
             this.file = e.target.files[0];
+        },
+        // selectMood: function (id) {
+        //     console.log("mood has been selected");
+        //     console.log("mood ID clicked: ", id);
+        //     this.moodSelected = id;
+        // },
+        selectImage: function (id) {
+            console.log("select image!");
+            this.imageSelected = id;
         },
     },
 });

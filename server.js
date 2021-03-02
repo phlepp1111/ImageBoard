@@ -37,6 +37,21 @@ app.get("/imageboard", (req, res) => {
         });
 });
 
+app.get("/imageboard/:id", (req, res) => {
+    console.log("req.params", req.params);
+    let id = req.params.id;
+    db.getSingleImage(id)
+        .then(({ rows }) => {
+            // console.log("rows", rows);
+            res.json({
+                image: rows[0],
+            });
+        })
+        .catch((error) => {
+            console.log("error in dynamic route, getImage", error);
+        });
+});
+
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     const { title, description, username } = req.body;
     const { filename } = req.file;
