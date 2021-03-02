@@ -2,7 +2,7 @@ const spicedPg = require("spiced-pg");
 
 const db = spicedPg("postgres:postgres:postgres@localhost:5432/imageboard");
 
-module.exports.getAllImages = () => {
+module.exports.getFirstImages = () => {
     const q = `
         SELECT * FROM images
         ORDER BY id DESC
@@ -23,5 +23,21 @@ module.exports.addImage = (url, username, title, description) => {
 module.exports.getSingleImage = (id) => {
     const q = `SELECT * FROM images WHERE id = $1`;
     const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.getComments = (id) => {
+    const q = `SELECT * FROM comments WHERE img_id = $1`;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.addComment = (img_id, comment, username) => {
+    const q = `
+    INSERT INTO comments (img_id, comment, username)
+    VALUES ($1, $2, $3)
+    RETURNING *
+    `;
+    const params = [img_id, comment, username];
     return db.query(q, params);
 };

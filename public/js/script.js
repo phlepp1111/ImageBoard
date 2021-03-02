@@ -17,16 +17,6 @@
 //         },
 //     },
 // });
-Vue.component("comment-section", {
-    template: "#comment-template",
-    data: function () {
-        return {
-            comment: "",
-        };
-    },
-    props: "",
-    mounted: function () {},
-});
 Vue.component("image-popup", {
     template: "#popup-template",
     data: function () {
@@ -44,15 +34,18 @@ Vue.component("image-popup", {
         axios
             .get("/imageboard/" + this.imageId)
             .then(function (response) {
-                console.log("response!!!!!", response.data.image);
+                console.log(
+                    "response from mounting image board",
+                    response.data.image
+                );
                 self.title = response.data.image.title;
                 self.description = response.data.image.description;
                 self.username = response.data.image.username;
                 self.url = response.data.image.url;
                 self.created_at = response.data.image.created_at;
             })
-            .catch(function (err) {
-                console.log("error in axios", err);
+            .catch(function (error) {
+                console.log("error in axios", error);
             });
     },
     methods: {
@@ -61,6 +54,53 @@ Vue.component("image-popup", {
         },
     },
 });
+
+Vue.component("comment-section", {
+    template: "#comment-template",
+    data: function () {
+        return {
+            comment: "",
+            username: "",
+            created_at: "",
+            allComments: [],
+        };
+    },
+    props: ["imageId"],
+    mounted: function () {
+        console.log("ImageID: ", this.imageId);
+        axios
+            .get("/comments?" + this.imageId)
+            .then((response) => {
+                console.log("Comments response.data", response.data);
+                var self = this;
+                self.allComments = response.data;
+            })
+            .catch((error) => {
+                console.log("error in comments retrival:", error);
+            });
+    },
+    methods: {
+        handleComments: function () {
+            const allCommentData = {
+                comment: this.comment,
+                username: this.username,
+                img_id: this.imageId,
+            };
+            console.log("ALL Comment Data: ", allCommentData);
+            axios
+                .post("/addComment", allCommentData)
+                .then((response) => {
+                    this.allComments.unshift(response.data.addComment);
+                    this.comment = "";
+                    this.username = "";
+                })
+                .catch((error) => {
+                    console.log("error on unshift and post response:", error);
+                });
+        },
+    },
+});
+
 new Vue({
     el: "#main",
     data: {
@@ -80,13 +120,13 @@ new Vue({
         imageSelected: null,
     },
     mounted: function () {
-        console.log("my main vue instance has mounted");
+        //console.log("my main vue instance has mounted");
         var self = this;
         //axios for server communication
         axios
             .get("/imageboard")
             .then(function (response) {
-                console.log("response:", response);
+                //console.log("response:", response);
                 var imgArray = response.data;
                 imgArray.sort(function (a, b) {
                     return new Date(b.created_at) - new Date(a.created_at);

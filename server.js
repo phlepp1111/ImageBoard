@@ -26,7 +26,7 @@ const uploader = multer({
 app.use(express.static("public"));
 
 app.get("/imageboard", (req, res) => {
-    db.getAllImages()
+    db.getFirstImages()
         .then(({ rows }) => {
             console.log("Rows: ", rows);
             res.json(rows);
@@ -48,12 +48,40 @@ app.get("/imageboard/:id", (req, res) => {
             });
         })
         .catch((error) => {
-            console.log("error in dynamic route, getImage", error);
+            console.log("error in dynamic route, images", error);
+        });
+});
+
+app.get("/comments", (req, res) => {
+    console.log("COMMENTS req.params", req.params);
+    let id = req.params.id;
+    db.getComments(id)
+        .then(({ rows }) => {
+            console.log("comments rows", rows);
+            res.json({
+                comment: rows[0],
+            });
+        })
+        .catch((error) => {
+            console.log("error in dynamic route, comments", error);
+        });
+});
+
+app.post("/addcomment", (req, res) => {
+    console.log("req.body while adding comment: ", req.body);
+    let { comment, username, img_id } = req.body;
+    db.addComment(img_id, comment, username)
+        .then(({ rows }) => {
+            console.log("new comment from DB is", rows[0]);
+            res.json({ addComment: rows[0] });
+        })
+        .catch((err) => {
+            console.log("error in comment submission", err);
         });
 });
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
-    const { title, description, username } = req.body;
+    let { title, description, username } = req.body;
     const { filename } = req.file;
     if (req.file) {
         db.addImage(

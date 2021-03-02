@@ -61,11 +61,14 @@
     <script id="comment-template" type="text/x-template">
         <div class="comment-section">
             <form action="POST">
-                <input type="text" placeholder="comment here">
-                <input type="text" placeholder="username">
-                <button>POST</button>
+                <input v-model="comment" type="text" placeholder="comment here">
+                <input v-model="username" type="text" placeholder="username">
+                <button @click.prevent="handleComments()">POST</button>
                 <br>
-                <div id="comments"></div>
+                <div id="comments" v-for="comment in allComments">
+                    <h4>{{comment.comment}}</h4>
+                    <h4>by {{comment.username}} on {{comment.created_at}}</h4>
+                </div>
 
             </form>
         </div>
