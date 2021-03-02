@@ -52,3 +52,22 @@ input {
 #input {
     padding: 15px;
 }
+.card-popup {
+    transform: translateY(-200px);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.897);
+}
+#img-popup {
+    position: relative;
+}
+#closeX {
+    text-align: right;
+}

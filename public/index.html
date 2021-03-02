@@ -21,20 +21,20 @@
         </div>
         <br>
         <!-- <my-first-component v-if="moodSelected":mood-id="moodSelected"></my-first-component> -->
-        <image-popup v-if="imageSelected" v-bind:image-id="imageSelected"></image-popup>
+        <image-popup v-if="imageSelected" v-bind:image-id="imageSelected" @close="closeComponent"></image-popup>
 
         <!-- <h1 v-for="mood in moods" @click="selectMood(mood.id)">{{mood.title}}</h1> -->
         <div id="cards">
             <div id="img-card"
                             v-for="img in images"
                             :key="img.id"
-                            @click="selectImage"
+                            @click="selectImage(img.id)"
                         >
                         <h3>{{img.title}}</h3> 
                         <img :src="img.url" alt="image" id="imgpreview"/>
                         <!-- <p>{{img.description}}</p> -->
                         <!-- <p>Posted by {{img.username}}</p> -->
-                        <p id="timestamp">{{img.created_at}}</p>
+                        <!-- <p id="timestamp">{{img.created_at}}</p> -->
             </div>
         </div>
     </div>
@@ -46,9 +46,10 @@
         </div>
      -->
     <script id="popup-template" type="text/x-template">
-        <div id="img-popup">
+        <div class="card-popup">
+            <h2 id="closeX" @click="closeElement">x</h2>
             <h3>{{title}}</h3> 
-            <img v-bind:src="url" alt="image"/>
+            <img v-bind:src="url" alt="image" id="img-popup"/>
             <p>{{description}}</p>
             <p>Posted by {{username}}</p>
             <p id="timestamp">{{created_at}}</p>

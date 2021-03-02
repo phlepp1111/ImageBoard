@@ -46,9 +46,9 @@ Vue.component("image-popup", {
             });
     },
     methods: {
-        updateCount: function () {
-            console.log("component button got clicked");
-            this.count++;
+        closeElement: function () {
+            console.log("X got clicked");
+            this.$emit("close");
         },
     },
 });
@@ -122,6 +122,10 @@ new Vue({
         selectImage: function (id) {
             console.log("select image!");
             this.imageSelected = id;
+        },
+        closeComponent: function () {
+            console.log("component was closed!");
+            this.imageSelected = null;
         },
     },
 });
