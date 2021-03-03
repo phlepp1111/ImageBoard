@@ -73,9 +73,15 @@ input {
     align-items: center;
     text-align: center;
     min-height: 100vh;
-    background-color: rgba(27, 27, 27, 0.555);
+    background-color: rgba(26, 26, 26, 0.897);
     overflow: scroll;
 }
 #img-popup {
     position: relative;
+}
+#comment-box {
+    border: 2px solid whitesmoke;
+    border-radius: 2%;
+    width: 500px;
+    height: auto;
 }

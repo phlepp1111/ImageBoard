@@ -24,6 +24,7 @@ const uploader = multer({
 });
 
 app.use(express.static("public"));
+app.use(express.json());
 
 app.get("/imageboard", (req, res) => {
     db.getFirstImages()
@@ -52,7 +53,7 @@ app.get("/imageboard/:id", (req, res) => {
         });
 });
 
-app.get("/comments", (req, res) => {
+app.get("/comments/:id", (req, res) => {
     console.log("COMMENTS req.params", req.params);
     let id = req.params.id;
     db.getComments(id)

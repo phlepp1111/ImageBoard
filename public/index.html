@@ -49,12 +49,12 @@
      -->
     <script id="popup-template" type="text/x-template">
         <div class="card-popup">
-            <img class="imgfull" v-bind:src="url" alt="image" id="img-popup" @click="closeElement"/>
+            <img class="imgfull" :src="url" alt="image" id="img-popup" @click="closeElement"/>
             <h2>{{title}}</h2> 
             <h3>{{description}}</h3>
             <p>Posted by {{username}}</p>
             <p id="timestamp">{{created_at}}</p>
-            <comment-section></comment-section>
+            <comment-section v-bind:image-id="this.imageId"></comment-section>
         </div>
     </script>
 
@@ -66,8 +66,10 @@
                 <button @click.prevent="handleComments()">POST</button>
                 <br>
                 <div id="comments" v-for="comment in allComments">
-                    <h4>{{comment.comment}}</h4>
-                    <h4>by {{comment.username}} on {{comment.created_at}}</h4>
+                    <div id="comment-box">
+                        <p>{{comment.comment}}</p>
+                        <p>by {{comment.username}} on {{comment.created_at}}</p>
+                    </div>  
                 </div>
 
             </form>

@@ -61,7 +61,6 @@ Vue.component("comment-section", {
         return {
             comment: "",
             username: "",
-            created_at: "",
             allComments: [],
         };
     },
@@ -69,7 +68,7 @@ Vue.component("comment-section", {
     mounted: function () {
         console.log("ImageID: ", this.imageId);
         axios
-            .get("/comments?" + this.imageId)
+            .get("/comments/" + this.imageId)
             .then((response) => {
                 console.log("Comments response.data", response.data);
                 var self = this;
@@ -107,6 +106,7 @@ new Vue({
         name: "Fennel",
         seen: true,
         images: [],
+
         title: "",
         description: "",
         username: "",
