@@ -26,9 +26,9 @@ module.exports.getSingleImage = (id) => {
     return db.query(q, params);
 };
 
-module.exports.getComments = (id) => {
-    const q = `SELECT * FROM comments WHERE img_id = $1`;
-    const params = [id];
+module.exports.getComments = (imageId) => {
+    const q = `SELECT * FROM comments WHERE img_id = $1 ORDER BY id DESC`;
+    const params = [imageId];
     return db.query(q, params);
 };
 

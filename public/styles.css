@@ -81,7 +81,8 @@ input {
 }
 #comment-box {
     border: 2px solid whitesmoke;
-    border-radius: 2%;
+    border-radius: 10px;
     width: 500px;
     height: auto;
+    margin: 20px auto;
 }

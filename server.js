@@ -59,9 +59,7 @@ app.get("/comments/:id", (req, res) => {
     db.getComments(id)
         .then(({ rows }) => {
             console.log("comments rows", rows);
-            res.json({
-                comment: rows[0],
-            });
+            res.json(rows);
         })
         .catch((error) => {
             console.log("error in dynamic route, comments", error);
