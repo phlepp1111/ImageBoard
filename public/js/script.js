@@ -26,6 +26,8 @@ Vue.component("image-popup", {
             description: "",
             username: "",
             created_at: "",
+            nextImgId: "",
+            prevImgId: "",
         };
     },
     props: ["imageId"],
@@ -51,6 +53,31 @@ Vue.component("image-popup", {
     methods: {
         closeElement: function () {
             this.$emit("close");
+        },
+    },
+    watch: {
+        imageId: function () {
+            console.log("modal imageId changed to:", this.imageId);
+            var self = this;
+            axios
+                .get("/imageboard/" + this.imageId)
+                .then(function (response) {
+                    console.log("RESPONSE: ", response);
+                    self.url = response.data[0].url;
+                    self.title = response.data[0].title;
+                    self.description = response.data[0].description;
+                    self.username = response.data[0].username;
+                    self.created_at = response.data[0].created_at;
+                    self.nextImgId = response.data[0].nextImgId;
+                    self.prevImgId = response.data[0].prevImgId;
+                })
+                .catch(function (error) {
+                    console.log(
+                        "Error getting response for rerouted image:",
+                        error
+                    );
+                    self.$emit("close");
+                });
         },
     },
 });
@@ -117,16 +144,17 @@ new Vue({
         //     { id: 3, title: ":/" },
         // ],
         // moodSelected: 1,
-        imageSelected: null,
+        imageSelected: location.hash.slice(1),
     },
     mounted: function () {
         //console.log("my main vue instance has mounted");
         var self = this;
+        //console.log(self.location.hash);
         //axios for server communication
         axios
             .get("/imageboard")
             .then(function (response) {
-                //console.log("response:", response);
+                console.log("Main Mount Response:", response);
                 var imgArray = response.data;
                 imgArray.sort(function (a, b) {
                     return new Date(b.created_at) - new Date(a.created_at);
@@ -136,6 +164,9 @@ new Vue({
             .catch(function (error) {
                 console.log("axiosError: ", error);
             });
+        window.addEventListener("hashchange", function () {
+            self.imageSelected = location.hash.slice(1);
+        });
     },
     methods: {
         handleClick: function (e) {
@@ -174,6 +205,7 @@ new Vue({
         },
         closeComponent: function () {
             console.log("component was closed!");
+            location.hash = "";
             this.imageSelected = null;
         },
         getMoreImages: function () {

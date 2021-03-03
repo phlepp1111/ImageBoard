@@ -19,7 +19,7 @@ module.exports.getMoreImages = (id) => {
     ) AS "lowestImgId" FROM images
     WHERE id <$1
     ORDER BY id DESC
-    LIMIT 4
+    LIMIT 5
     `;
     const params = [id];
     return db.query(q, params);

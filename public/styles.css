@@ -47,6 +47,7 @@ input {
     margin: 5px;
     align-items: center;
     cursor: default;
+    color: white;
 }
 #img-card:hover {
     color: tomato;

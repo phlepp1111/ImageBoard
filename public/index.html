@@ -24,22 +24,20 @@
         <image-popup v-if="imageSelected" v-bind:image-id="imageSelected" @close="closeComponent"></image-popup>
 
         <!-- <h1 v-for="mood in moods" @click="selectMood(mood.id)">{{mood.title}}</h1> -->
-        <div id="cards">
-            <div id="img-card"
+        
+        <div id="cards" >
+            <a id="img-card" v-bind:href="'#' + img.id"
                             v-for="img in images"
                             :key="img.id"
-                            @click="selectImage(img.id)"
                         >
-                        <h3>{{img.title}}</h3> 
-                        <img :src="img.url" alt="image" id="imgpreview"/>
-                        <!-- <p>{{img.description}}</p> -->
-                        <!-- <p>Posted by {{img.username}}</p> -->
-                        <!-- <p id="timestamp">{{img.created_at}}</p> -->
-            </div>
+                    <h3>{{img.title}}</h3> 
+                    <img :src="img.url" alt="image" id="imgpreview"/>
+            </a>
         </div>
+        
         <br>
         <div id="getMoreImages">
-            <button @click="getMoreImages">more images</button>
+            <button @click.prevent="getMoreImages">more images</button>
         </div>
     </div>
     <!-- <script id="my-component-template" type="text/x-template"> -->
