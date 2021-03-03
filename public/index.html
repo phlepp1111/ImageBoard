@@ -38,7 +38,9 @@
             </div>
         </div>
         <br>
-        <button @click="getMoreImages">more images</button>
+        <div id="getMoreImages">
+            <button @click="getMoreImages">more images</button>
+        </div>
     </div>
     <!-- <script id="my-component-template" type="text/x-template"> -->
         <!-- <div class="component">
@@ -61,10 +63,12 @@
     <script id="comment-template" type="text/x-template">
         <div class="comment-section">
             <form action="POST">
-                <input v-model="comment" type="text" placeholder="comment here">
-                <input v-model="username" type="text" placeholder="username">
-                <button @click.prevent="handleComments()">POST</button>
-                <br>
+                <div id="comment-input">
+                    <input v-model="comment" type="text" placeholder="comment here">
+                    <input v-model="username" type="text" placeholder="username">
+                    <button @click.prevent="handleComments()">POST</button>
+                    <br>
+                </div>
                 <div id="comments" v-for="comment in allComments">
                     <div id="comment-box">
                         <p>{{comment.comment}}</p>

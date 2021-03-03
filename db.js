@@ -10,6 +10,21 @@ module.exports.getFirstImages = () => {
     `;
     return db.query(q);
 };
+module.exports.getMoreImages = (id) => {
+    const q = `
+    SELECT id, url, title, (
+        SELECT id FROM images
+        ORDER BY id ASC
+        LIMIT 1
+    ) AS "lowestImgId" FROM images
+    WHERE id <$1
+    ORDER BY id DESC
+    LIMIT 4
+    `;
+    const params = [id];
+    return db.query(q, params);
+};
+
 module.exports.addImage = (url, username, title, description) => {
     const q = `
         INSERT INTO images (url, username, title, description) 

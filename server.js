@@ -38,6 +38,19 @@ app.get("/imageboard", (req, res) => {
         });
 });
 
+app.get("/more/:lowestImgId", (req, res) => {
+    const lowestImgId = req.params.lowestImgId;
+    console.log("Lowest id received: ", lowestImgId);
+    db.getMoreImages(lowestImgId)
+        .then(({ rows }) => {
+            // console.log(rows);
+            res.json(rows);
+        })
+        .catch((error) => {
+            console.log("Error getting more images in server:", error);
+        });
+});
+
 app.get("/imageboard/:id", (req, res) => {
     console.log("req.params", req.params);
     let id = req.params.id;

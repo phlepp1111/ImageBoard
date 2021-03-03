@@ -176,5 +176,28 @@ new Vue({
             console.log("component was closed!");
             this.imageSelected = null;
         },
+        getMoreImages: function () {
+            console.log("getting more images");
+            console.log(this.images);
+            var lowestImgId = this.images[this.images.length - 1].id;
+            var self = this;
+            axios
+                .get("/more/" + lowestImgId)
+                .then((response) => {
+                    console.log("Response for more images:", response.data);
+                    var moreImages = self.images.concat(response.data);
+                    self.images = moreImages;
+                    if (
+                        self.images[self.images.length - 1].id ==
+                        response.data[0].lowestImgId
+                    ) {
+                        self.lastOnScreen = true;
+                        console.log("All images are displayed");
+                    }
+                })
+                .catch((error) => {
+                    console.log("Error getting more images: ", error);
+                });
+        },
     },
 });

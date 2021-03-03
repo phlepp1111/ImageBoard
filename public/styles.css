@@ -79,10 +79,18 @@ input {
 #img-popup {
     position: relative;
 }
+#comment-input {
+    margin: 20px auto;
+}
 #comment-box {
     border: 2px solid whitesmoke;
     border-radius: 10px;
     width: 500px;
     height: auto;
     margin: 20px auto;
+}
+#getMoreImages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
