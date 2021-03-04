@@ -1,22 +1,3 @@
-// Vue.component("my-first-component", {
-//     template: "#my-component-template",
-//     data: function () {
-//         return {
-//             name: "Philipp",
-//             count: 1,
-//         };
-//     },
-//     props: ["moodId"],
-//     mounted: function () {
-//         console.log("this.moodId: ", this.moodId);
-//     },
-//     methods: {
-//         updateCount: function () {
-//             console.log("component button got clicked");
-//             this.count++;
-//         },
-//     },
-// });
 Vue.component("image-popup", {
     template: "#popup-template",
     data: function () {
@@ -36,15 +17,14 @@ Vue.component("image-popup", {
         axios
             .get("/imageboard/" + this.imageId)
             .then(function (response) {
-                console.log(
-                    "response from mounting image board",
-                    response.data.image
-                );
                 self.title = response.data.image.title;
                 self.description = response.data.image.description;
                 self.username = response.data.image.username;
                 self.url = response.data.image.url;
                 self.created_at = response.data.image.created_at;
+                console.log("NEXT", response.data.image.nextImgId);
+                self.nextImgId = response.data.image.nextImgId;
+                self.prevImgId = response.data.image.prevImgId;
             })
             .catch(function (error) {
                 console.log("error in axios", error);
@@ -57,7 +37,6 @@ Vue.component("image-popup", {
     },
     watch: {
         imageId: function () {
-            console.log("modal imageId changed to:", this.imageId);
             var self = this;
             axios
                 .get("/imageboard/" + this.imageId)
@@ -93,7 +72,6 @@ Vue.component("comment-section", {
     },
     props: ["imageId"],
     mounted: function () {
-        console.log("ImageID: ", this.imageId);
         axios
             .get("/comments/" + this.imageId)
             .then((response) => {
@@ -112,7 +90,6 @@ Vue.component("comment-section", {
                 username: this.username,
                 img_id: this.imageId,
             };
-            console.log("ALL Comment Data: ", allCommentData);
             axios
                 .post("/addComment", allCommentData)
                 .then((response) => {
@@ -133,28 +110,17 @@ new Vue({
         name: "Fennel",
         seen: true,
         images: [],
-
         title: "",
         description: "",
         username: "",
         file: null,
-        // moods: [
-        //     { id: 1, title: ":(" },
-        //     { id: 2, title: ":)" },
-        //     { id: 3, title: ":/" },
-        // ],
-        // moodSelected: 1,
         imageSelected: location.hash.slice(1),
     },
     mounted: function () {
-        //console.log("my main vue instance has mounted");
         var self = this;
-        //console.log(self.location.hash);
-        //axios for server communication
         axios
             .get("/imageboard")
             .then(function (response) {
-                console.log("Main Mount Response:", response);
                 var imgArray = response.data;
                 imgArray.sort(function (a, b) {
                     return new Date(b.created_at) - new Date(a.created_at);
@@ -170,7 +136,6 @@ new Vue({
     },
     methods: {
         handleClick: function (e) {
-            console.log(e);
             e.preventDefault();
             var formData = new FormData();
             formData.append("title", this.title);
@@ -179,7 +144,6 @@ new Vue({
             formData.append("file", this.file);
             console.log("title: ", this.title);
             console.log("description: ", this.description);
-            console.log("handleClick running");
             axios
                 .post("/upload", formData)
                 .then(function (response) {
@@ -190,15 +154,8 @@ new Vue({
                 });
         },
         handleChange: function (e) {
-            console.log("e.target.files : ", e.target.files[0]);
-            console.log("handleChange is running");
             this.file = e.target.files[0];
         },
-        // selectMood: function (id) {
-        //     console.log("mood has been selected");
-        //     console.log("mood ID clicked: ", id);
-        //     this.moodSelected = id;
-        // },
         selectImage: function (id) {
             console.log("select image!");
             this.imageSelected = id;
@@ -206,17 +163,15 @@ new Vue({
         closeComponent: function () {
             console.log("component was closed!");
             location.hash = "";
-            this.imageSelected = null;
+            // this.imageSelected = null;
         },
         getMoreImages: function () {
             console.log("getting more images");
-            console.log(this.images);
             var lowestImgId = this.images[this.images.length - 1].id;
             var self = this;
             axios
                 .get("/more/" + lowestImgId)
                 .then((response) => {
-                    console.log("Response for more images:", response.data);
                     var moreImages = self.images.concat(response.data);
                     self.images = moreImages;
                     if (

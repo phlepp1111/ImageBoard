@@ -36,7 +36,21 @@ module.exports.addImage = (url, username, title, description) => {
 };
 
 module.exports.getSingleImage = (id) => {
-    const q = `SELECT * FROM images WHERE id = $1`;
+    const q = `
+    SELECT *, (
+        SELECT id FROM images
+        WHERE id <$1
+        ORDER BY id DESC
+        LIMIT 1
+    ) AS "nextImgId", (
+        SELECT id FROM images
+        WHERE id >$1
+        ORDER BY id ASC
+        LIMIT 1
+    ) AS "prevImgId"
+    FROM images
+    WHERE id = $1
+    `;
     const params = [id];
     return db.query(q, params);
 };

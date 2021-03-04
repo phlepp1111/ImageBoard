@@ -29,7 +29,6 @@ app.use(express.json());
 app.get("/imageboard", (req, res) => {
     db.getFirstImages()
         .then(({ rows }) => {
-            console.log("Rows: ", rows);
             res.json(rows);
             console.log("hit the get route!");
         })
@@ -43,7 +42,6 @@ app.get("/more/:lowestImgId", (req, res) => {
     console.log("Lowest id received: ", lowestImgId);
     db.getMoreImages(lowestImgId)
         .then(({ rows }) => {
-            // console.log(rows);
             res.json(rows);
         })
         .catch((error) => {
@@ -52,11 +50,9 @@ app.get("/more/:lowestImgId", (req, res) => {
 });
 
 app.get("/imageboard/:id", (req, res) => {
-    console.log("req.params", req.params);
     let id = req.params.id;
     db.getSingleImage(id)
         .then(({ rows }) => {
-            // console.log("rows", rows);
             res.json({
                 image: rows[0],
             });
@@ -67,11 +63,9 @@ app.get("/imageboard/:id", (req, res) => {
 });
 
 app.get("/comments/:id", (req, res) => {
-    console.log("COMMENTS req.params", req.params);
     let id = req.params.id;
     db.getComments(id)
         .then(({ rows }) => {
-            console.log("comments rows", rows);
             res.json(rows);
         })
         .catch((error) => {
@@ -80,11 +74,9 @@ app.get("/comments/:id", (req, res) => {
 });
 
 app.post("/addcomment", (req, res) => {
-    console.log("req.body while adding comment: ", req.body);
     let { comment, username, img_id } = req.body;
     db.addComment(img_id, comment, username)
         .then(({ rows }) => {
-            console.log("new comment from DB is", rows[0]);
             res.json({ addComment: rows[0] });
         })
         .catch((err) => {
