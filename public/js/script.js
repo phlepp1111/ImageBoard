@@ -22,7 +22,6 @@ Vue.component("image-popup", {
                 self.username = response.data.image.username;
                 self.url = response.data.image.url;
                 self.created_at = response.data.image.created_at;
-                console.log("NEXT", response.data.image.nextImgId);
                 self.nextImgId = response.data.image.nextImgId;
                 self.prevImgId = response.data.image.prevImgId;
             })
@@ -41,14 +40,13 @@ Vue.component("image-popup", {
             axios
                 .get("/imageboard/" + this.imageId)
                 .then(function (response) {
-                    console.log("RESPONSE: ", response);
-                    self.url = response.data[0].url;
-                    self.title = response.data[0].title;
-                    self.description = response.data[0].description;
-                    self.username = response.data[0].username;
-                    self.created_at = response.data[0].created_at;
-                    self.nextImgId = response.data[0].nextImgId;
-                    self.prevImgId = response.data[0].prevImgId;
+                    self.url = response.data.image.url;
+                    self.title = response.data.image.title;
+                    self.description = response.data.image.description;
+                    self.username = response.data.image.username;
+                    self.created_at = response.data.image.created_at;
+                    self.nextImgId = response.data.image.nextImgId;
+                    self.prevImgId = response.data.image.prevImgId;
                 })
                 .catch(function (error) {
                     console.log(
@@ -75,7 +73,6 @@ Vue.component("comment-section", {
         axios
             .get("/comments/" + this.imageId)
             .then((response) => {
-                console.log("Comments response.data", response.data);
                 var self = this;
                 self.allComments = response.data;
             })
@@ -115,6 +112,7 @@ new Vue({
         username: "",
         file: null,
         imageSelected: location.hash.slice(1),
+        lastOnScreen: null,
     },
     mounted: function () {
         var self = this;
@@ -142,8 +140,6 @@ new Vue({
             formData.append("description", this.description);
             formData.append("username", this.username);
             formData.append("file", this.file);
-            console.log("title: ", this.title);
-            console.log("description: ", this.description);
             axios
                 .post("/upload", formData)
                 .then(function (response) {
@@ -163,10 +159,9 @@ new Vue({
         closeComponent: function () {
             console.log("component was closed!");
             location.hash = "";
-            // this.imageSelected = null;
+            this.imageSelected = null;
         },
         getMoreImages: function () {
-            console.log("getting more images");
             var lowestImgId = this.images[this.images.length - 1].id;
             var self = this;
             axios

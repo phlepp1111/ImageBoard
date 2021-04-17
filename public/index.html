@@ -26,7 +26,7 @@
         <div id="cards" >
             <a id="img-card" v-bind:href="'#' + img.id"
                             v-for="img in images"
-                            :key="img.id"
+                            v-bind:key="img.id"
                         >
                     <h3>{{img.title}}</h3> 
                     <img :src="img.url" alt="image" id="imgpreview"/>
@@ -34,16 +34,16 @@
         </div>
         
         <br>
-        <div id="getMoreImages">
+        <div v-if="!lastOnScreen" id="getMoreImages">
             <button @click.prevent="getMoreImages">more images</button>
         </div>
     </div>
 
     <script id="popup-template" type="text/x-template">
         <div class="card-popup">
-            <a v-if="prevImgId" :href="'#' + prevImgId" ><<</a>
-            <img class="imgfull" :src="url" alt="image" id="img-popup" @click="closeElement"/>
-            <a v-if="nextImgId" :href="'#' + nextImgId" >>></a>
+            <a class="prevnext" v-if="prevImgId" v-bind:href="'#' + prevImgId" >&lt;&lt;</a>
+                <img class="imgfull" v-bind:src="url" alt="image" id="img-popup" @click="closeElement"/>
+            <a class="prevnext" v-if="nextImgId" v-bind:href="'#' + nextImgId" >&gt;&gt;</a>
             <h2>{{title}}</h2> 
             <h3 v-if="description">{{description}}</h3>
             <p v-if="username">Posted by {{username}}</p>
