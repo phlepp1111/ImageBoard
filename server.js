@@ -42,6 +42,7 @@ app.get("/more/:lowestImgId", (req, res) => {
      console.log("Lowest id received: ", lowestImgId);
      db.getMoreImages(lowestImgId)
           .then(({ rows }) => {
+               console.log("return from db: ", rows);
                res.json(rows);
           })
           .catch((error) => {

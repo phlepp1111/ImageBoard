@@ -6,7 +6,7 @@ module.exports.getFirstImages = () => {
      const q = `
         SELECT * FROM images
         ORDER BY id DESC
-        LIMIT 10;
+        LIMIT 6;
     `;
      return db.query(q);
 };

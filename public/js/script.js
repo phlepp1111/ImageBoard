@@ -111,7 +111,7 @@ new Vue({
           username: "",
           file: null,
           imageSelected: location.hash.slice(1),
-          lastOnScreen: null,
+          lastOnScreen: false,
      },
      mounted: function () {
           var self = this;
@@ -161,6 +161,7 @@ new Vue({
                     .then((response) => {
                          var moreImages = self.images.concat(response.data);
                          self.images = moreImages;
+                         console.log("db response:", response);
                          if (
                               self.images[self.images.length - 1].id ==
                               response.data[0].lowestImgId
