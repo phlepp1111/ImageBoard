@@ -1,120 +1,121 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    color: whitesmoke;
-    background-color: rgb(34, 34, 34);
+     font-family: Arial, Helvetica, sans-serif;
+     color: whitesmoke;
+     background-color: rgb(34, 34, 34);
 }
 button {
-    width: 100px;
-    height: 25px;
+     width: 100px;
+     height: 25px;
 }
 #imgpreview {
-    width: auto;
-    height: auto;
-    max-width: 200px;
-    max-height: 200px;
+     width: auto;
+     height: auto;
+     max-width: 200px;
+     max-height: 200px;
 }
 .imgfull {
-    margin-top: 50px;
-    width: auto;
-    max-width: 1280px;
-    height: auto;
-    max-height: 800px;
+     margin-top: 50px;
+     width: auto;
+     max-width: 1280px;
+     height: auto;
+     max-height: 800px;
 }
 h1 {
-    text-align: center;
-    cursor: default;
-    text-decoration: none;
-    color: whitesmoke;
+     text-align: center;
+     cursor: default;
+     text-decoration: none;
+     color: whitesmoke;
 }
 a {
-    color: whitesmoke;
-    text-decoration: none;
+     color: whitesmoke;
+     text-decoration: none;
 }
 input {
-    text-align: center;
+     text-align: center;
 }
 #upload {
-    width: 50%;
-    min-height: 150px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    text-align: center;
-    border: 2px solid whitesmoke;
-    border-radius: 10px;
-    margin: 0 auto;
+     width: 50%;
+     min-height: 150px;
+     min-width: 300px;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-evenly;
+     align-items: center;
+     text-align: center;
+     border: 2px solid whitesmoke;
+     border-radius: 10px;
+     margin: 0 auto;
 }
 #cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
-    text-align: center;
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: space-evenly;
+     align-items: center;
+     text-align: center;
 }
 #img-card {
-    object-fit: contain;
-    border: 2px solid white;
-    border-radius: 2%;
-    width: 300px;
-    height: 350px;
-    margin: 5px;
-    align-items: center;
-    cursor: default;
-    color: white;
+     object-fit: contain;
+     border: 2px solid white;
+     border-radius: 2%;
+     width: 300px;
+     height: 350px;
+     margin: 5px;
+     align-items: center;
+     cursor: default;
+     color: white;
 }
 #img-card:hover {
-    color: tomato;
-    border: 2px solid tomato;
-    cursor: default;
-    background-color: rgba(104, 104, 104, 0.384);
+     color: tomato;
+     border: 2px solid tomato;
+     cursor: default;
+     background-color: rgba(104, 104, 104, 0.384);
 }
 #timestamp {
-    font-size: smaller;
-    color: dimgrey;
+     font-size: smaller;
+     color: dimgrey;
 }
 #input {
-    padding: 15px;
+     padding: 15px;
 }
 .card-popup {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    display: block;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 100vh;
-    background-color: rgba(26, 26, 26, 0.897);
-    overflow: scroll;
-    cursor: default;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     position: fixed;
+     display: block;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+     min-height: 100vh;
+     background-color: rgba(26, 26, 26, 0.897);
+     overflow: scroll;
+     cursor: default;
 }
 #img-popup {
-    position: relative;
+     position: relative;
 }
 #comment-input {
-    margin: 20px auto;
+     margin: 20px auto;
 }
 #comment-box {
-    border: 2px solid whitesmoke;
-    border-radius: 10px;
-    width: 500px;
-    height: auto;
-    margin: 20px auto;
-    background-color: rgba(128, 128, 128, 0.397);
+     border: 2px solid whitesmoke;
+     border-radius: 10px;
+     width: 500px;
+     height: auto;
+     margin: 20px auto;
+     background-color: rgba(128, 128, 128, 0.397);
 }
 #getMoreImages {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+     display: flex;
+     justify-content: center;
+     align-items: center;
 }
 .commentBottom {
-    color: grey;
+     color: grey;
 }
 .prevnext {
-    font: 2em;
-    line-height: inherit;
+     font: 2em;
+     line-height: inherit;
 }
