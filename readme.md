@@ -5,4 +5,4 @@
 <div align=center>
 <h1>Technologies:</h1>
 <p>Vue.js, Node.js, Express.js, PostgreSQL</p>
-<div/>
+</div>
